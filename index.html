@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Renato Premium</title>
+
+  <meta name="theme-color" content="#080808">
+  <meta name="description" content="Plataforma de vídeos para maiores de 18 anos">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #080808;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    #loginScreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background:
+        radial-gradient(circle at center, #251010 0%, #100707 35%, #050505 75%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(20, 20, 20, .96);
+      border: 1px solid #292929;
+      border-radius: 18px;
+      padding: 35px 28px;
+      box-shadow: 0 20px 70px rgba(0, 0, 0, .7);
+    }
+
+    .logo {
+      color: #e50914;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .logo span {
+      color: #fff;
+    }
+
+    .login-subtitle {
+      color: #999;
+      text-align: center;
+      margin-bottom: 28px;
+      font-size: 14px;
+    }
+
+    .age-warning {
+      background: rgba(229, 9, 20, .08);
+      border: 1px solid rgba(229, 9, 20, .35);
+      color: #ddd;
+      padding: 13px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field input {
+      width: 100%;
+      background: #111;
+      color: #fff;
+      border: 1px solid #333;
+      border-radius: 9px;
+      padding: 14px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .field input:focus {
+      border-color: #e50914;
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      background: #e50914;
+      color: white;
+      padding: 14px;
+      font-weight: bold;
+      font-size: 15px;
+      transition: .2s;
+    }
+
+    .primary-btn:hover {
+      background: #f6121d;
+      transform: translateY(-1px);
+    }
+
+    .login-info {
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       APP
+    ========================= */
+
+    #app {
+      display: none;
+      min-height: 100vh;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 70px;
+      background: rgba(8, 8, 8, .96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #181818;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding: 0 4%;
+    }
+
+    .header-logo {
+      font-size: 25px;
+      font-weight: 900;
+      color: #e50914;
+      white-space: nowrap;
+    }
+
+    .header-logo span {
+      color: #fff;
+    }
+
+    .search {
+      flex: 1;
+      max-width: 620px;
+      position: relative;
+    }
+
+    .search input {
+      width: 100%;
+      background: #161616;
+      border: 1px solid #292929;
+      color: white;
+      padding: 11px 15px 11px 40px;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search input:focus {
+      border-color: #555;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 10px;
+      color: #888;
+    }
+
+    .header-actions {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-btn {
+      background: #181818;
+      color: #ddd;
+      border: 1px solid #292929;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-size: 13px;
+    }
+
+    .header-btn:hover {
+      background: #252525;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 430px;
+      padding: 70px 6%;
+      display: flex;
+      align-items: center;
+      background:
+        linear-gradient(90deg, #080808 0%, rgba(8,8,8,.88) 35%, rgba(8,8,8,.25) 75%, #080808 100%),
+        linear-gradient(0deg, #080808 0%, transparent 30%),
+        url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1800&q=80")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #e50914;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: .98;
+      margin-bottom: 17px;
+    }
+
+    .hero p {
+      color: #ccc;
+      line-height: 1.6;
+      max-width: 560px;
+      font-size: 15px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .hero-play {
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-weight: bold;
+    }
+
+    .hero-more {
+      background: rgba(60,60,60,.8);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-weight: bold;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .categories {
+      padding: 22px 4% 10px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category {
+      flex: 0 0 auto;
+      border: 1px solid #292929;
+      background: #111;
+      color: #aaa;
+      padding: 9px 15px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .category.active,
+    .category:hover {
+      background: #e50914;
+      border-color: #e50914;
+      color: #fff;
+    }
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    main {
+      padding-bottom: 60px;
+    }
+
+    .section {
+      padding: 25px 4%;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 17px;
+    }
+
+    .section-title h2 {
+      font-size: 22px;
+    }
+
+    .count {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      background: #111;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #1d1d1d;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #444;
+    }
+
+    .thumb {
+      aspect-ratio: 16 / 9;
+      background: #222;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s;
+    }
+
+    .card:hover .thumb img {
+      transform: scale(1.05);
+    }
+
+    .play-circle {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: rgba(229, 9, 20, .95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: .2s;
+    }
+
+    .card:hover .play-circle {
+      opacity: 1;
+    }
+
+    .duration {
+      position: absolute;
+      right: 7px;
+      bottom: 7px;
+      background: rgba(0,0,0,.85);
+      padding: 3px 5px;
+      border-radius: 3px;
+      font-size: 10px;
+    }
+
+    .age-tag {
+      position: absolute;
+      left: 7px;
+      top: 7px;
+      background: #e50914;
+      color: #fff;
+      padding: 3px 5px;
+      border-radius: 3px;
+      font-size: 9px;
+      font-weight: bold;
+    }
+
+    .card-info {
+      padding: 10px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-meta {
+      color: #777;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .favorite {
+      border: none;
+      background: transparent;
+      color: #777;
+      font-size: 17px;
+    }
+
+    .favorite.active {
+      color: #e50914;
+    }
+
+    .empty {
+      padding: 50px 20px;
+      text-align: center;
+      color: #777;
+      grid-column: 1/-1;
+    }
+
+    /* =========================
+       PLAYER
+    ========================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      background: rgba(0,0,0,.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .player-box {
+      width: min(1100px, 100%);
+      background: #0d0d0d;
+      border: 1px solid #282828;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 100px #000;
+    }
+
+    .player-header {
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid #222;
+    }
+
+    .player-title {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .close {
+      width: 34px;
+      height: 34px;
+      border: none;
+      border-radius: 50%;
+      background: #222;
+      color: white;
+      font-size: 20px;
+    }
+
+    video {
+      width: 100%;
+      max-height: 75vh;
+      background: #000;
+      display: block;
+    }
+
+    .player-info {
+      padding: 14px 17px;
+    }
+
+    .player-info p {
+      color: #888;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translateX(-50%) translateY(100px);
+      background: #222;
+      border: 1px solid #333;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      z-index: 9000;
+      font-size: 13px;
+      transition: .3s;
+      opacity: 0;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 35px 4%;
+      color: #666;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================= */
+
+    @media (max-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 950px) {
+      .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      header {
+        gap: 12px;
+      }
+
+      .header-logo {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      header {
+        height: auto;
+        min-height: 62px;
+        padding: 10px 15px;
+        flex-wrap: wrap;
+      }
+
+      .header-logo {
+        order: 1;
+      }
+
+      .header-actions {
+        order: 2;
+      }
+
+      .search {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+      }
+
+      .hero {
+        min-height: 430px;
+        padding: 50px 20px;
+        background:
+          linear-gradient(90deg, #080808 0%, rgba(8,8,8,.78) 100%),
+          linear-gradient(0deg, #080808 0%, transparent 40%),
+          url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1000&q=80")
+          center/cover;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 9px;
+      }
+
+      .section {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .categories {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .card-info {
+        padding: 7px;
+      }
+
+      .card-title {
+        font-size: 12px;
+      }
+
+      .card-meta {
+        font-size: 10px;
+      }
+
+      .play-circle {
+        width: 34px;
+        height: 34px;
+      }
+
+      .header-btn {
+        padding: 7px 9px;
+        font-size: 11px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero {
+        min-height: 390px;
+      }
+
+      .hero h1 {
+        font-size: 39px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<div id="loginScreen">
+
+  <div class="login-box">
+
+    <div class="logo">
+      RENATO<span>+</span>
+    </div>
+
+    <div class="login-subtitle">
+      Plataforma de vídeos
+    </div>
+
+    <div class="age-warning">
+      🔞 Conteúdo destinado exclusivamente a maiores de 18 anos.
+    </div>
+
+    <div class="field">
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Seu e-mail"
+        autocomplete="email"
+      >
+    </div>
+
+    <div class="field">
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Senha"
+        autocomplete="current-password"
+      >
+    </div>
+
+    <button class="primary-btn" onclick="login()">
+      ENTRAR
+    </button>
+
+    <div class="login-info">
+      Este protótipo utiliza armazenamento local do navegador.
+      <br>
+      Posteriormente você pode conectar Supabase ou outro backend.
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<div id="app">
+
+  <header>
+
+    <div class="header-logo">
+      RENATO<span>+</span>
+    </div>
+
+    <div class="search">
+      <span class="search-icon">🔎</span>
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Pesquisar vídeos..."
+        oninput="renderVideos()"
+      >
+    </div>
+
+    <div class="header-actions">
+
+      <button class="header-btn" onclick="showFavorites()">
+        ♥ Favoritos
+      </button>
+
+      <button class="header-btn" onclick="logout()">
+        Sair
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <span class="hero-badge">
+        CONTEÚDO 18+
+      </span>
+
+      <h1>
+        Seu catálogo.
+        <br>
+        Seu conteúdo.
+      </h1>
+
+      <p>
+        Assista aos seus vídeos em uma interface moderna,
+        rápida e adaptada para celular, tablet e computador.
+      </p>
+
+      <div class="hero-buttons">
+
+        <button class="hero-play" onclick="openVideo(1)">
+          ▶ Assistir
+        </button>
+
+        <button class="hero-more" onclick="scrollToCatalog()">
+          Ver catálogo
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CATEGORIAS
+  ========================= -->
+
+  <div class="categories">
+
+    <button class="category active" data-category="Todos" onclick="setCategory('Todos', this)">
+      Todos
+    </button>
+
+    <button class="category" data-category="Novos" onclick="setCategory('Novos', this)">
+      Novos
+    </button>
+
+    <button class="category" data-category="Populares" onclick="setCategory('Populares', this)">
+      Populares
+    </button>
+
+    <button class="category" data-category="Premium" onclick="setCategory('Premium', this)">
+      Premium
+    </button>
+
+    <button class="category" data-category="Coleções" onclick="setCategory('Coleções', this)">
+      Coleções
+    </button>
+
+    <button class="category" data-category="Favoritos" onclick="showFavorites()">
+      ♥ Favoritos
+    </button>
+
+  </div>
+
+
+  <!-- =========================
+       CONTEÚDO
+  ========================= -->
+
+  <main id="catalog">
+
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2 id="sectionTitle">
+          Todos os vídeos
+        </h2>
+
+        <span class="count" id="videoCount"></span>
+
+      </div>
+
+      <div id="videoGrid" class="grid"></div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div>
+      © 2026 Renato+ — Plataforma de vídeos.
+    </div>
+
+    <div>
+      Conteúdo destinado exclusivamente a maiores de 18 anos.
+    </div>
+
+  </footer>
+
+</div>
+
+
+<!-- =========================
+     PLAYER
+========================= -->
+
+<div id="playerModal" class="modal" onclick="backgroundClose(event)">
+
+  <div class="player-box">
+
+    <div class="player-header">
+
+      <div id="playerTitle" class="player-title">
+        Vídeo
+      </div>
+
+      <button class="close" onclick="closePlayer()">
+        ×
+      </button>
+
+    </div>
+
+    <video
+      id="videoPlayer"
+      controls
+      playsinline
+      preload="metadata"
+    ></video>
+
+    <div class="player-info">
+
+      <p id="playerDescription">
+        Reprodução de vídeo.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div id="toast"></div>
+
+
+<script>
+
+  /* =====================================================
+     CONFIGURAÇÃO
+  ===================================================== */
+
+  const videos = [
+
+    {
+      id: 1,
+      title: "Vídeo de demonstração",
+      category: "Novos",
+      duration: "01:32",
+      premium: true,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Vídeo de demonstração do player. Substitua esta URL pela URL do seu próprio vídeo."
+    },
+
+    {
+      id: 2,
+      title: "Coleção Premium",
+      category: "Premium",
+      duration: "02:14",
+      premium: true,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 3,
+      title: "Especial da semana",
+      category: "Populares",
+      duration: "03:21",
+      premium: false,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 4,
+      title: "Coleção exclusiva",
+      category: "Coleções",
+      duration: "04:05",
+      premium: true,
+      popular: false,
+      image:
+        "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 5,
+      title: "Novo conteúdo",
+      category: "Novos",
+      duration: "02:48",
+      premium: false,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 6,
+      title: "Premium Collection",
+      category: "Premium",
+      duration: "05:10",
+      premium: true,
+      popular: false,
+      image:
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 7,
+      title: "Mais assistidos",
+      category: "Populares",
+      duration: "03:55",
+      premium: false,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 8,
+      title: "Nova coleção",
+      category: "Coleções",
+      duration: "06:12",
+      premium: true,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 9,
+      title: "Conteúdo especial",
+      category: "Novos",
+      duration: "02:59",
+      premium: false,
+      popular: false,
+      image:
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 10,
+      title: "Seleção Premium",
+      category: "Premium",
+      duration: "04:32",
+      premium: true,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 11,
+      title: "Vídeo exclusivo",
+      category: "Coleções",
+      duration: "03:43",
+      premium: true,
+      popular: false,
+      image:
+        "https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    },
+
+    {
+      id: 12,
+      title: "Destaque",
+      category: "Populares",
+      duration: "05:02",
+      premium: false,
+      popular: true,
+      image:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80",
+      url:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      description:
+        "Conteúdo de demonstração."
+    }
+
+  ];
+
+
+  /* =====================================================
+     ESTADO
+  ===================================================== */
+
+  let currentCategory = "Todos";
+
+  let favorites =
+    JSON.parse(localStorage.getItem("renato_favorites") || "[]");
+
+  let history =
+    JSON.parse(localStorage.getItem("renato_history") || "[]");
+
+
+  /* =====================================================
+     LOGIN
+  ===================================================== */
+
+  function login() {
+
+    const email =
+      document.getElementById("loginEmail").value.trim();
+
+    const password =
+      document.getElementById("loginPassword").value.trim();
+
+    if (!email || !password) {
+
+      showToast("Digite e-mail e senha.");
+
+      return;
+    }
+
+    localStorage.setItem(
+      "renato_logged",
+      "true"
+    );
+
+    localStorage.setItem(
+      "renato_user",
+      email
+    );
+
+    document.getElementById("loginScreen").style.display =
+      "none";
+
+    document.getElementById("app").style.display =
+      "block";
+
+    renderVideos();
+  }
+
+
+  function logout() {
+
+    localStorage.removeItem("renato_logged");
+
+    location.reload();
+  }
+
+
+  function checkLogin() {
+
+    const logged =
+      localStorage.getItem("renato_logged");
+
+    if (logged === "true") {
+
+      document.getElementById("loginScreen").style.display =
+        "none";
+
+      document.getElementById("app").style.display =
+        "block";
+
+      renderVideos();
+
+    } else {
+
+      document.getElementById("loginScreen").style.display =
+        "flex";
+
+      document.getElementById("app").style.display =
+        "none";
+    }
+  }
+
+
+  /* =====================================================
+     RENDERIZAÇÃO
+  ===================================================== */
+
+  function renderVideos() {
+
+    const grid =
+      document.getElementById("videoGrid");
+
+    const search =
+      document.getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    let filtered = [...videos];
+
+
+    if (currentCategory === "Novos") {
+
+      filtered =
+        filtered.filter(v =>
+          v.category === "Novos"
+        );
+
+    }
+
+    else if (currentCategory === "Populares") {
+
+      filtered =
+        filtered.filter(v =>
+          v.popular
+        );
+
+    }
+
+    else if (currentCategory === "Premium") {
+
+      filtered =
+        filtered.filter(v =>
+          v.premium
+        );
+
+    }
+
+    else if (currentCategory === "Coleções") {
+
+      filtered =
+        filtered.filter(v =>
+          v.category === "Coleções"
+        );
+
+    }
+
+    else if (currentCategory === "Favoritos") {
+
+      filtered =
+        filtered.filter(v =>
+          favorites.includes(v.id)
+        );
+
+    }
+
+
+    if (search) {
+
+      filtered =
+        filtered.filter(v =>
+          v.title
+            .toLowerCase()
+            .includes(search)
+        );
+    }
+
+
+    document.getElementById("videoCount").textContent =
+      `${filtered.length} vídeo${filtered.length !== 1 ? "s" : ""}`;
+
+
+    grid.innerHTML = "";
+
+
+    if (!filtered.length) {
+
+      grid.innerHTML = `
+        <div class="empty">
+          <div style="font-size:35px;margin-bottom:10px;">🔎</div>
+          Nenhum vídeo encontrado.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    filtered.forEach(video => {
+
+      const isFavorite =
+        favorites.includes(video.id);
+
+      const card =
+        document.createElement("article");
+
+      card.className = "card";
+
+
+      card.innerHTML = `
+
+        <div class="thumb"
+             onclick="openVideo(${video.id})">
+
+          <img
+            src="${video.image}"
+            alt="${escapeHTML(video.title)}"
+            loading="lazy"
+          >
+
+          <span class="age-tag">
+            18+
+          </span>
+
+          <span class="duration">
+            ${video.duration}
+          </span>
+
+          <div class="play-circle">
+            ▶
+          </div>
+
+        </div>
+
+        <div class="card-info">
+
+          <div class="card-title">
+            ${escapeHTML(video.title)}
+          </div>
+
+          <div class="card-meta">
+            ${video.category}
+            ${video.premium ? " • Premium" : ""}
+          </div>
+
+          <div class="card-bottom">
+
+            <span style="color:#666;font-size:11px;">
+              ▶ Assistir
+            </span>
+
+            <button
+              class="favorite ${isFavorite ? "active" : ""}"
+              onclick="toggleFavorite(event, ${video.id})"
+              aria-label="Favorito"
+            >
+              ${isFavorite ? "♥" : "♡"}
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+
+      grid.appendChild(card);
+
+    });
+
+  }
+
+
+  /* =====================================================
+     CATEGORIAS
+  ===================================================== */
+
+  function setCategory(category, element) {
+
+    currentCategory = category;
+
+    document
+      .querySelectorAll(".category")
+      .forEach(btn =>
+        btn.classList.remove("active")
+      );
+
+    if (element) {
+
+      element.classList.add("active");
+
+    }
+
+    document.getElementById("sectionTitle").textContent =
+      category === "Todos"
+        ? "Todos os vídeos"
+        : category;
+
+    renderVideos();
+  }
+
+
+  function showFavorites() {
+
+    currentCategory = "Favoritos";
+
+    document
+      .querySelectorAll(".category")
+      .forEach(btn =>
+        btn.classList.remove("active")
+      );
+
+    document.getElementById("sectionTitle").textContent =
+      "Meus favoritos";
+
+    renderVideos();
+  }
+
+
+  /* =====================================================
+     FAVORITOS
+  ===================================================== */
+
+  function toggleFavorite(event, id) {
+
+    event.stopPropagation();
+
+    if (favorites.includes(id)) {
+
+      favorites =
+        favorites.filter(item => item !== id);
+
+      showToast("Removido dos favoritos.");
+
+    } else {
+
+      favorites.push(id);
+
+      showToast("Adicionado aos favoritos.");
+    }
+
+
+    localStorage.setItem(
+      "renato_favorites",
+      JSON.stringify(favorites)
+    );
+
+    renderVideos();
+  }
+
+
+  /* =====================================================
+     PLAYER
+  ===================================================== */
+
+  function openVideo(id) {
+
+    const video =
+      videos.find(v => v.id === id);
+
+    if (!video) return;
+
+
+    document.getElementById("playerTitle")
+      .textContent =
+      video.title;
+
+    document.getElementById("playerDescription")
+      .textContent =
+      video.description;
+
+
+    const player =
+      document.getElementById("videoPlayer");
+
+    player.pause();
+
+    player.src =
+      video.url;
+
+    player.load();
+
+
+    document.getElementById("playerModal")
+      .classList.add("show");
+
+
+    const historyItem =
+      history.indexOf(id);
+
+    if (historyItem !== -1) {
+
+      history.splice(historyItem, 1);
+    }
+
+    history.unshift(id);
+
+    history =
+      history.slice(0, 30);
+
+    localStorage.setItem(
+      "renato_history",
+      JSON.stringify(history)
+    );
+
+
+    setTimeout(() => {
+
+      player.play().catch(() => {});
+
+    }, 300);
+  }
+
+
+  function closePlayer() {
+
+    const player =
+      document.getElementById("videoPlayer");
+
+    player.pause();
+
+    player.removeAttribute("src");
+
+    player.load();
+
+    document.getElementById("playerModal")
+      .classList.remove("show");
+  }
+
+
+  function backgroundClose(event) {
+
+    if (
+      event.target ===
+      document.getElementById("playerModal")
+    ) {
+
+      closePlayer();
+    }
+  }
+
+
+  /* =====================================================
+     UTILITÁRIOS
+  ===================================================== */
+
+  function scrollToCatalog() {
+
+    document.getElementById("catalog")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+  }
+
+
+  function showToast(message) {
+
+    const toast =
+      document.getElementById("toast");
+
+    toast.textContent =
+      message;
+
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer =
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 2500);
+  }
+
+
+  function escapeHTML(text) {
+
+    return text
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+
+  /* =====================================================
+     TECLADO
+  ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (event.key === "Escape") {
+
+        closePlayer();
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     INICIALIZAÇÃO
+  ===================================================== */
+
+  checkLogin();
+
+</script>
+
+</body>
+</html>
